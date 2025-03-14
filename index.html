@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veroid - Подготовка к обновлению</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0c0c0c;
+            color: #fff;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        /* Добавляем класс под иконку (логотип) */
+        .logo {
+            width: 180px;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 0 8px rgba(255, 230, 0, 0.6));
+            animation: pulse 3s infinite;
+        }
+
+        .error-code {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 8rem;
+            font-weight: 900;
+            color: #ffe600;
+            text-shadow: 0 0 10px rgba(255, 230, 0, 0.7);
+            margin-bottom: 1rem;
+            position: relative;
+            letter-spacing: -0.05em;
+        }
+
+        .error-code:after {
+            content: "SERVICE UNAVAILABLE";
+            position: absolute;
+            font-size: 1rem;
+            top: -20px;
+            right: -20px;
+            background: #000;
+            padding: 5px 10px;
+            border: 2px solid #ffe600;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .message {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-weight: 700;
+            max-width: 800px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.6;
+            color: #cccccc;
+        }
+
+        .timer-container {
+            display: flex;
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #ffe600;
+            padding: 15px 20px;
+            min-width: 90px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-box:before {
+            content: "";
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            width: calc(100% + 6px);
+            height: calc(100% + 6px);
+            background: repeating-linear-gradient(
+                45deg,
+                #ffe600,
+                #ffe600 10px,
+                #000 10px,
+                #000 20px
+            );
+            z-index: -1;
+        }
+
+        .timer-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffe600;
+        }
+
+        .timer-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .svg-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .caution-strip {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: repeating-linear-gradient(
+                45deg,
+                #ffe600,
+                #ffe600 20px,
+                #000 20px,
+                #000 40px
+            );
+            z-index: 5;
+        }
+
+        .caution-strip:before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to top, rgba(255, 230, 0, 0.5), transparent);
+        }
+
+        .status-panel {
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid #ffe600;
+            padding: 15px 25px;
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status-panel:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: #ffe600;
+            animation: blink 1s infinite;
+        }
+
+        .status-line {
+            font-family: 'Courier New', monospace;
+            margin-bottom: 5px;
+            color: #0f0;
+        }
+
+        .status-line span {
+            color: #ffe600;
+        }
+
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #ffe600;
+            border-radius: 50%;
+            color: #ffe600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: #ffe600;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 5rem;
+            }
+
+            .message {
+                font-size: 1.5rem;
+            }
+
+            .timer-container {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <svg class="svg-background" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+        <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+            <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#ffe60020" stroke-width="1"/>
+        </pattern>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <g stroke="#ffe600" stroke-width="2" opacity="0.6">
+            <line x1="0" y1="800" x2="1920" y2="800" class="warning-line" />
+        </g>
+
+        <path d="M 0 1080 L 1920 0" stroke="#ffe600" stroke-width="50" stroke-dasharray="60,60" opacity="0.1" />
+        <path d="M 0 880 L 1720 0" stroke="#ffe600" stroke-width="30" stroke-dasharray="40,40" opacity="0.1" />
+        <path d="M 200 1080 L 1920 200" stroke="#ffe600" stroke-width="30" stroke-dasharray="40,40" opacity="0.1" />
+
+        <path id="circuit1" d="M 0 100 Q 300 50, 600 300 T 1200 400 T 1920 300" fill="none" stroke="#ffe600" stroke-width="2" opacity="0.5" stroke-dasharray="5,10" />
+        <path id="circuit2" d="M 0 500 Q 400 650, 800 500 T 1400 450 T 1920 600" fill="none" stroke="#ffe600" stroke-width="2" opacity="0.5" stroke-dasharray="5,10" />
+        <path id="circuit3" d="M 0 900 Q 500 850, 700 700 T 1300 650 T 1920 800" fill="none" stroke="#ffe600" stroke-width="2" opacity="0.5" stroke-dasharray="5,10" />
+    </svg>
+
+    <div class="caution-strip"></div>
+
+    <div class="container">
+        <img class="logo" src="./assets/logo.png" alt="Logo">
+
+        <p class="message">Готовимся стать лучше...</p>
+        <p class="description">В данный момент наши сайты недоступны, в связи с обновлением, которое мы для вас готовим. Пожалуйста, подождите немного!</p>
+
+        <div class="timer-container">
+            <div class="timer-box">
+                <span class="timer-value" id="hours">00</span>
+                <span class="timer-label">Часов</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="minutes">00</span>
+                <span class="timer-label">Минут</span>
+            </div>
+            <div class="timer-box">
+                <span class="timer-value" id="seconds">00</span>
+                <span class="timer-label">Секунд</span>
+            </div>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-line"><span>></span> Обновление в процессе: <span id="timestamp">2025-03-15 08:00:00</span></div>
+            <div class="status-line"><span>></span> Предполагаемое завершение: 2025-03-15 08:00:00</div>
+            <div class="status-line" id="status-text"><span>></span> Ожидание...</div>
+        </div>
+    </div>
+
+    <script>
+        const TARGET_TIMESTAMP = 1742014800;
+        const endTime = new Date(TARGET_TIMESTAMP * 1000);
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = endTime - now;
+
+            if (distance <= 0) {
+                document.getElementById("hours").textContent   = "00";
+                document.getElementById("minutes").textContent = "00";
+                document.getElementById("seconds").textContent = "00";
+                document.getElementById("status-text").textContent = "Ещё пара шрихов...";
+
+                setTimeout(() => {
+                    document.getElementById("status-text").textContent = "Всё готово!";
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
+                }, 5000);
+
+                return;
+            }
+
+            const hours   = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60))     / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60))          / 1000);
+
+            document.getElementById("hours").textContent   = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+        }
+
+        const now = new Date();
+        document.getElementById("timestamp").textContent = now
+          .toISOString()
+          .replace('T', ' ')
+          .substr(0, 19);
+
+        updateTimer();
+        const x = setInterval(updateTimer, 1000);
+
+        const circuits = document.querySelectorAll('#circuit1, #circuit2, #circuit3');
+        function animateCircuits() {
+            circuits.forEach((circuit, index) => {
+                const startOffset = -index * 500;
+                const dashLength = parseInt(circuit.getAttribute('stroke-dasharray').split(',')[0]) || 5;
+
+                circuit.innerHTML = `
+                    <animate
+                        attributeName="stroke-dashoffset"
+                        from="${startOffset}"
+                        to="${startOffset - 1000}"
+                        dur="${8 + index}s"
+                        repeatCount="indefinite"
+                    />
+                `;
+            });
+        }
+        animateCircuits();
+
+        function createParticles() {
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.querySelector('.svg-background');
+
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElementNS(svgNS, "circle");
+
+                const x = Math.random() * 1920;
+                const y = Math.random() * 1080;
+                const size = Math.random() * 3 + 1;
+
+                particle.setAttribute("cx", x);
+                particle.setAttribute("cy", y);
+                particle.setAttribute("r", size);
+                particle.setAttribute("fill", "#ffe600");
+                particle.setAttribute("opacity", Math.random() * 0.5 + 0.2);
+
+                const animateX = document.createElementNS(svgNS, "animate");
+                animateX.setAttribute("attributeName", "cx");
+                animateX.setAttribute("from", x);
+                animateX.setAttribute("to", x + (Math.random() * 100 - 50));
+                animateX.setAttribute("dur", (Math.random() * 10 + 5) + "s");
+                animateX.setAttribute("repeatCount", "indefinite");
+                animateX.setAttribute("calcMode", "spline");
+                animateX.setAttribute("keySplines", "0.4 0 0.6 1; 0.4 0 0.6 1");
+
+                const animateY = document.createElementNS(svgNS, "animate");
+                animateY.setAttribute("attributeName", "cy");
+                animateY.setAttribute("from", y);
+                animateY.setAttribute("to", y + (Math.random() * 100 - 50));
+                animateY.setAttribute("dur", (Math.random() * 10 + 5) + "s");
+                animateY.setAttribute("repeatCount", "indefinite");
+                animateY.setAttribute("calcMode", "spline");
+                animateY.setAttribute("keySplines", "0.4 0 0.6 1; 0.4 0 0.6 1");
+
+                const animateOpacity = document.createElementNS(svgNS, "animate");
+                animateOpacity.setAttribute("attributeName", "opacity");
+                animateOpacity.setAttribute("from", Math.random() * 0.5 + 0.2);
+                animateOpacity.setAttribute("to", 0);
+                animateOpacity.setAttribute("dur", (Math.random() * 5 + 3) + "s");
+                animateOpacity.setAttribute("repeatCount", "indefinite");
+
+                particle.appendChild(animateX);
+                particle.appendChild(animateY);
+                particle.appendChild(animateOpacity);
+                svg.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+</body>
+</html>
